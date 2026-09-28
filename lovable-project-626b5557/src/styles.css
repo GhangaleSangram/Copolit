@@ -1,0 +1,184 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Interview assistant design system.
+ * Dark, glassy overlay aesthetic matching a floating desktop HUD.
+ * All colors are oklch semantic tokens. Never hardcode colors in components.
+ */
+
+@theme inline {
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+
+  --color-hud: var(--hud);
+  --color-hud-foreground: var(--hud-foreground);
+  --color-hud-border: var(--hud-border);
+  --color-hud-key: var(--hud-key);
+  --color-live: var(--live);
+  --color-live-foreground: var(--live-foreground);
+  --color-listening: var(--listening);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  --background: oklch(0.18 0.015 250);
+  --foreground: oklch(0.97 0.004 250);
+  --card: oklch(0.23 0.016 250);
+  --card-foreground: oklch(0.97 0.004 250);
+  --popover: oklch(0.21 0.016 250);
+  --popover-foreground: oklch(0.97 0.004 250);
+  --primary: oklch(0.78 0.16 155);
+  --primary-foreground: oklch(0.2 0.03 155);
+  --secondary: oklch(0.3 0.016 250);
+  --secondary-foreground: oklch(0.97 0.004 250);
+  --muted: oklch(0.28 0.014 250);
+  --muted-foreground: oklch(0.72 0.012 250);
+  --accent: oklch(0.33 0.02 250);
+  --accent-foreground: oklch(0.97 0.004 250);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.98 0.005 250);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.78 0.16 155 / 60%);
+
+  /* HUD overlay */
+  --hud: oklch(0.22 0.008 250 / 92%);
+  --hud-foreground: oklch(0.98 0.003 250);
+  --hud-border: oklch(1 0 0 / 10%);
+  --hud-key: oklch(1 0 0 / 8%);
+  --live: oklch(0.58 0.21 25);
+  --live-foreground: oklch(0.99 0.004 25);
+  --listening: oklch(0.82 0.19 135);
+
+  --chart-1: oklch(0.78 0.16 155);
+  --chart-2: oklch(0.7 0.14 220);
+  --chart-3: oklch(0.8 0.15 90);
+  --chart-4: oklch(0.65 0.2 25);
+  --chart-5: oklch(0.7 0.16 300);
+
+  --sidebar: oklch(0.21 0.016 250);
+  --sidebar-foreground: oklch(0.97 0.004 250);
+  --sidebar-primary: oklch(0.78 0.16 155);
+  --sidebar-primary-foreground: oklch(0.2 0.03 155);
+  --sidebar-accent: oklch(0.3 0.016 250);
+  --sidebar-accent-foreground: oklch(0.97 0.004 250);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.78 0.16 155 / 60%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+  }
+}
+
+@utility hud-bar {
+  background-color: var(--hud);
+  border: 1px solid var(--hud-border);
+  border-radius: 9999px;
+  backdrop-filter: blur(18px);
+  box-shadow:
+    0 18px 40px -18px oklch(0 0 0 / 70%),
+    inset 0 1px 0 oklch(1 0 0 / 6%);
+}
+
+@utility hud-panel {
+  background-color: var(--hud);
+  border: 1px solid var(--hud-border);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 24px 60px -24px oklch(0 0 0 / 75%);
+}
+
+@utility hud-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  border-radius: 0.5rem;
+  background-color: var(--hud-key);
+  padding: 0.15rem 0.45rem;
+  font-size: 0.72rem;
+  line-height: 1.1rem;
+  color: var(--muted-foreground);
+}
+
+@utility grid-backdrop {
+  background-image:
+    radial-gradient(90rem 50rem at 50% -20%, oklch(0.78 0.16 155 / 10%), transparent 60%),
+    linear-gradient(to bottom, oklch(1 0 0 / 3%) 1px, transparent 1px),
+    linear-gradient(to right, oklch(1 0 0 / 3%) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 44px,
+    44px 100%;
+}
+
+@keyframes eq-bounce {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@utility eq-bar {
+  animation: eq-bounce 900ms ease-in-out infinite;
+  transform-origin: center;
+  background-color: var(--listening);
+}
